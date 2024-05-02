@@ -1,0 +1,129 @@
+* {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --border: #ddd;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  border-bottom: 1px solid var(--border);
+  background-image: url(../img/dotted-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+/* Contenido principal */
+.page__content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra lateral */
+.page__section {
+
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  justify-content: space-between;
+  gap: .5rem;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  list-style: none;
+  padding: 1rem;
+}
+
+.navigation-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem;
+  color: #717171;
+  text-decoration: none;
+  transition: all;
+  transition-duration: 200ms;
+}
+
+.navigation-link:active {
+  color: black;
+}
+
+.navigation-link:hover {
+  color: black;
+}
+
+.navigation-link-icon {
+  /* width: 16px; */
+}
+
+.page__main {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+/* Footer */
+.footer {
+  display: grid;
+  gap: .5rem;
+  border-top: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.footer .footer__block {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .5rem;
+}
+
+.footer .footer__block:last-child {
+  border-bottom: none;
+}
+
+.footer__block-title {
+  font-weight: 600;
+  margin-bottom: .25rem;
+}
+
+.footer__block-items {
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .page__content {
+    flex-direction: row;
+  }
+
+  .navigation {
+    grid-template-columns: 1fr;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
+
+  .navigation-link {
+    justify-content: start;
+  }
+
+  /* Footer */
+  .footer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer .footer__block {
+    border-bottom: none;
+  }
+}
