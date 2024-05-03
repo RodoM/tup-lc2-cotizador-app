@@ -1,0 +1,10 @@
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.contact__form-input {
+  display: flex;
+  flex-direction: column;
+}

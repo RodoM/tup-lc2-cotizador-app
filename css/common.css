@@ -14,6 +14,9 @@
   justify-content: center;
   align-items: center;
   gap: .5rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
   border-bottom: 1px solid var(--border);
   background-image: url(../img/dotted-bg.jpg);
   background-repeat: no-repeat;
@@ -30,11 +33,13 @@
 .page__content {
   display: flex;
   flex-direction: column;
+  min-height: 75vh;
+  margin-top: 61px;
 }
 
 /* Barra lateral */
 .page__section {
-
+  border-bottom: 1px solid var(--border);
 }
 
 .navigation {
@@ -42,7 +47,6 @@
   grid-template-columns: repeat(4, 150px);
   justify-content: space-between;
   gap: .5rem;
-  border-bottom: 1px solid var(--border);
   overflow-x: auto;
   list-style: none;
   padding: 1rem;
@@ -77,6 +81,10 @@
   padding: 1rem;
 }
 
+.page__main h2 {
+  margin-bottom: .5rem;
+}
+
 /* Footer */
 .footer {
   display: grid;
@@ -103,15 +111,28 @@
   list-style: none;
 }
 
+/* Helpers */
+.mt-2 {
+  margin-top: .5rem;
+}
+
+.text-end {
+  text-align: end;
+}
+
 @media (min-width: 768px) {
   .page__content {
     flex-direction: row;
   }
 
-  .navigation {
-    grid-template-columns: 1fr;
+  .page__section {
+    min-width: 200px;
     border-bottom: none;
     border-right: 1px solid var(--border);
+  }
+
+  .navigation {
+    grid-template-columns: 1fr;
   }
 
   .navigation-link {
@@ -125,5 +146,10 @@
 
   .footer .footer__block {
     border-bottom: none;
+  }
+
+  .footer_description {
+    grid-column: 1 / -1;
+    text-align: center;
   }
 }

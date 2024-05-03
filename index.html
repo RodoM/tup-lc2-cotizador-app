@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cotizador de monedas - Inicio</title>
   <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/pages/index.css">
 </head>
 <body class="page">
   <header class="header">
@@ -16,32 +17,117 @@
     <section class="page__section">
       <ul class="navigation">
         <li>
-          <a href="#" class="navigation-link">
+          <a href="/index.html" class="navigation-link">
             <img src="./img/icons/home.svg" alt="inicio" class="navigation-link-icon">
             Inicio
           </a>
         </li>
         <li>
-          <a href="#" class="navigation-link">
+          <a href="/miarchivo.html" class="navigation-link">
             <img src="./img/icons/folder.svg" alt="archivo" class="navigation-link-icon">
             Mi Archivo
           </a>
         </li>
         <li>
-          <a href="#" class="navigation-link">
+          <a href="/informes.html" class="navigation-link">
             <img src="./img/icons/paper.svg" alt="informes" class="navigation-link-icon">
             Informes
           </a>
         </li>
         <li>
-          <a href="#" class="navigation-link">
+          <a href="/contacto.html" class="navigation-link">
             <img src="./img/icons/contact.svg" alt="contacto" class="navigation-link-icon">
             Contactenos
           </a>
         </li>
       </ul>
     </section>
-    <main class="page__main">CONTENIDO CENTRAL (MAIN)</main>
+    <main class="page__main">
+      <h2>Pizarra de cotizaciones</h2>
+      <div class="currency__filter">
+        <label for="currency">Seleccione una moneda:</label>
+        <select name="currency" id="currency">
+          <option value="todas">todas</option>
+          <option value="dolar-blue">Dólar blue</option>
+          <option value="dolar-oficial">Dólar oficial</option>
+          <option value="dolar-bolsa">Dólar bolsa (MEP)</option>
+          <option value="dolar-liqui">Dólar contado con liqui (CCL)</option>
+          <option value="dolar-tarjeta">Dólar tarjeta</option>
+          <option value="dolar-mayorista">Dólar mayorista</option>
+          <option value="dolar-cripto">Dólar cripto</option>
+          <option value="euro">Euro</option>
+          <option value="real">Real brasileño</option>
+          <option value="peso-chileno">Peso chileno</option>
+          <option value="peso-uruguayo">Peso uruguayo</option>
+        </select>
+      </div>
+
+      <p class="text-end mt-2">Datos actualizados al dd/mm/aaaa hh:mm hs</p>
+
+      <div class="currency__container">
+        <div class="currency">
+          <span class="currency-name">OFICIAL</span>
+          <div class="currency__info">
+            <span class="currency__info-label">COMPRA</span>
+            <span class="currency__info-value">$847</span>
+          </div>
+          <div class="currency__info">
+            <span class="currency__info-label">VENTA</span>
+            <span class="currency__info-value">$887</span>
+          </div>
+          <button>
+            <img src="./img/icons/star.svg" alt="favoritos">
+          </button>
+        </div>
+
+        <div class="currency">
+          <span class="currency-name">OFICIAL</span>
+          <div class="currency__info">
+            <span class="currency__info-label">COMPRA</span>
+            <span class="currency__info-value">$847</span>
+          </div>
+          <div class="currency__info">
+            <span class="currency__info-label">VENTA</span>
+            <span class="currency__info-value">$887</span>
+          </div>
+          <button>
+            <img src="./img/icons/star.svg" alt="favoritos">
+          </button>
+        </div>
+
+        <div class="currency">
+          <span class="currency-name">OFICIAL</span>
+          <div class="currency__info">
+            <span class="currency__info-label">COMPRA</span>
+            <span class="currency__info-value">$847</span>
+          </div>
+          <div class="currency__info">
+            <span class="currency__info-label">VENTA</span>
+            <span class="currency__info-value">$887</span>
+          </div>
+          <button>
+            <img src="./img/icons/star.svg" alt="favoritos">
+          </button>
+        </div>
+
+        <div class="currency">
+          <span class="currency-name">OFICIAL</span>
+          <div class="currency__info">
+            <span class="currency__info-label">COMPRA</span>
+            <span class="currency__info-value">$847</span>
+          </div>
+          <div class="currency__info">
+            <span class="currency__info-label">VENTA</span>
+            <span class="currency__info-value">$887</span>
+          </div>
+          <button>
+            <img src="./img/icons/star.svg" alt="favoritos">
+          </button>
+        </div>
+      </div>
+
+      <p>Haga click en la estrella para guardar los datos de la cotización en sus favoritos.</p>
+    </main>
   </div>
 
   <footer class="footer">
@@ -80,6 +166,8 @@
       <p>Rodolfo Meroi (53473)</p>
       <p>TUP06 - 2024</p>
     </div>
+
+    <p class="footer_description">TUP - Cátedra de Laboratorio de Computación 2 - Año 2024</p>
   </footer>
 </body>
 </html>
