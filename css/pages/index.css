@@ -48,6 +48,11 @@
   padding: 1rem;
 }
 
+.currency button {
+  border: none;
+  background: none;
+}
+
 .currency-name {
   font-weight: bold;
   margin-right: auto;
