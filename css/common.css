@@ -119,6 +119,10 @@
   margin-top: .5rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-end {
   text-align: end;
 }

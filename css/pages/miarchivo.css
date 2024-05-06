@@ -1,0 +1,26 @@
+.table__container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+}
+
+th, td {
+  border-right: 1px solid var(--border);
+  padding: .5rem;
+}
+
+th:last-child, td:last-child {
+  border-right: none;
+}
+
+th {
+  text-align: start;
+}
+
+.date-cell {
+  background-color: #ddd;
+}
