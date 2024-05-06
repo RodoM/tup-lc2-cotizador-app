@@ -9,6 +9,7 @@ table {
 }
 
 th, td {
+  white-space: nowrap;
   border-right: 1px solid var(--border);
   padding: .5rem;
 }
