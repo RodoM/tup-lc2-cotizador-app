@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cotizador de monedas - Inicio</title>
+  <link rel="icon" href="./img/icons/coins.svg" type="image/x-icon">
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/pages/index.css">
 </head>
@@ -17,6 +18,7 @@
     <section class="page__section">
       <ul class="navigation">
         <li>
+          <!-- cambiar href a /tup-lc2-cotizador-app/index.html -->
           <a href="/index.html" class="navigation-link">
             <img src="./img/icons/home.svg" alt="inicio" class="navigation-link-icon">
             Inicio
@@ -43,7 +45,10 @@
       </ul>
     </section>
     <main class="page__main">
-      <h2>Pizarra de cotizaciones</h2>
+      <div class="page__title">
+        <h2>Pizarra de cotizaciones</h2>
+        <p>Inicio</p>
+      </div>
       <div class="currency__filter">
         <label for="currency">Seleccione una moneda:</label>
         <select name="currency" id="currency">
@@ -126,7 +131,10 @@
         </div>
       </div>
 
-      <p>Haga click en la estrella para guardar los datos de la cotización en sus favoritos.</p>
+      <div class="page__detail">
+        <p>Haga click en la estrella para guardar los datos de la cotización en sus favoritos.</p>
+        <p class="api-site">Datos obtenidos de <span>DolarApi.com</span></p>
+      </div>
     </main>
   </div>
 

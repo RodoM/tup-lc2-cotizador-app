@@ -1,6 +1,33 @@
+.page__detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.api-site {
+  width: max-content;
+  white-space: nowrap;
+  background-color: #ddd;
+  padding: .5rem;
+}
+
+.api-site span {
+  color: white;
+  background-color: rgb(111, 8, 254);
+  padding: .25rem;
+}
+
 .currency__filter {
   display: flex;
+  align-items: center;
   gap: .5rem;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: 1rem;
+}
+
+.currency__filter select {
+  background-color: white;
   border: 1px solid var(--border);
   border-radius: .5rem;
   padding: .5rem;
@@ -18,7 +45,7 @@
   gap: 1rem;
   border: 1px solid var(--border);
   border-radius: .5rem;
-  padding: .5rem;
+  padding: 1rem;
 }
 
 .currency-name {
@@ -41,6 +68,11 @@
 }
 
 @media (min-width: 768px) {
+  .page__detail {
+    flex-direction: row;
+    align-items: center;
+  }
+
   .currency__filter {
     width: fit-content;
   }

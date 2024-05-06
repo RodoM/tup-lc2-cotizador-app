@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotizador de monedas - Inicio</title>
+  <title>Cotizador de monedas - Contacto</title>
+  <link rel="icon" href="./img/icons/coins.svg" type="image/x-icon">
   <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./css/pages/contact.css">
+  <link rel="stylesheet" href="./css/pages/contacto.css">
 </head>
 <body class="page">
   <header class="header">
@@ -43,25 +44,54 @@
       </ul>
     </section>
     <main class="page__main">
-      <h2>Contacto web cotizaciones</h2>
-      <div>
-        <p>Datos de contacto</p>
-        <form class="contact__form">
-          <div class="contact__form-input">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" type="text" placeholder="Ingrese su nombre">
+      <div class="page__title">
+        <h2>Contacto web cotizaciones</h2>
+        <p>Inicio / Contacto</p>
+      </div>
+      <div class="contact__container">
+        <div class="contact__form-container">
+          <p class="contact__form-title">Datos de contacto</p>
+          <form class="contact__form">
+            <div class="contact__form-input">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" type="text" placeholder="Ingrese su nombre">
+            </div>
+  
+            <div class="contact__form-input">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="Ingrese su email">
+            </div>
+  
+            <div class="contact__form-input">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" rows="5" placeholder="Ingrese su mensaje"></textarea>
+            </div>
+  
+            <div class="contact__form-footer">
+              <button>Limpiar</button>
+              <button class="send-button">Enviar</button>
+            </div>
+          </form>
+        </div>
+        <div>
+          <p>
+            Si tiene alguna sugerencia o inconveniente por favor complete el siguiente
+            formulario y envíenoslo. Lo contactaremos a la brevedad.
+          </p>
+          <br>
+          <p>Esta web esta desarrollada utilizando <a href="https://dolarapi.com/">dolarapi</a></p>
+        
+          <div class="contact__data">
+            <div class="contact__data-info">
+              <h3>Datos de contacto</h3>
+              <p>Universidad Tecnológica Nacional</p>
+              <p>Zeballos 1341 - S2000BQA</p>
+              <p>Rosario</p>
+              <p>0341 - 4481871</p>
+            </div>
+            <img src="./img/utn-logo.jpg" alt="Logo UTN">
           </div>
-
-          <div class="contact__form-input">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="Ingrese su email">
-          </div>
-
-          <div class="contact__form-input">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" placeholder="Ingrese su mensaje"></textarea>
-          </div>
-        </form>
+        </div>
       </div>
     </main>
   </div>
