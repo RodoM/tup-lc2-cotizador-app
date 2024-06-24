@@ -23,5 +23,14 @@ th {
 }
 
 .date-cell {
-  background-color: #ddd;
+  background-color: #ddd !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.no-data {
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }

@@ -53,9 +53,7 @@ function randomRGB() {
 }
 
 generarEtiquetas(JSON.parse(localStorage.getItem("favoritas")) || []);
-console.log(etiquetas)
 const favoritas = transformarCotizaciones(JSON.parse(localStorage.getItem("favoritas")) || []);
-console.log(favoritas)
 
 const ctx = document.getElementById("miGrafica").getContext("2d");
 new Chart(ctx, {
@@ -71,3 +69,69 @@ new Chart(ctx, {
     }))
   }
 });
+
+function agruparYOrdenarDatos(datos) {
+  // Agrupar por nombre
+  const agrupadosPorNombre = datos.reduce((acc, curr) => {
+    const nombre = curr.nombre;
+    if (!acc[nombre]) {
+      acc[nombre] = [];
+    }
+    acc[nombre].push(curr);
+    return acc;
+  }, {});
+
+  // Procesar cada grupo de cotizaciones
+  const resultadoOrdenado = Object.keys(agrupadosPorNombre).sort().map(nombre => {
+    // Obtener las cotizaciones para el nombre actual
+    const cotizaciones = agrupadosPorNombre[nombre];
+    
+    // Calcular la tendencia para cada cotización
+    cotizaciones.forEach((cotizacion, indice, array) => {
+      const tendencia = indice === 0 ? "igual" : parseFloat(cotizacion.venta) > parseFloat(array[indice - 1].venta) ? "en-alta" : parseFloat(cotizacion.venta) < parseFloat(array[indice - 1].venta) ? "en-baja" : "igual";
+      cotizacion.tendencia = tendencia;
+    });
+
+    // Ordenar las cotizaciones por fecha de actualización (descendente)
+    const cotizacionesOrdenadas = cotizaciones.sort((a, b) => new Date(b.fechaActualizacion) - new Date(a.fechaActualizacion));
+
+    return {
+      nombre,
+      cotizaciones: cotizacionesOrdenadas
+    };
+  });
+
+  return resultadoOrdenado;
+}
+
+function mostrarInforme() {
+  const favoritas = agruparYOrdenarDatos(JSON.parse(localStorage.getItem("favoritas")) || []);
+  const table = document.getElementById("table-body");
+  table.innerHTML = '';
+  if (favoritas.length) {
+    favoritas.forEach((grupo) => {
+      const elementoNombre = document.createElement('tr');
+      elementoNombre.innerHTML = `
+        <td colspan="5" class="date-cell">${grupo.nombre}</td>
+      `;
+      table.appendChild(elementoNombre);
+      grupo.cotizaciones.forEach((cotizacion) => {
+        const fecha = new Date(cotizacion.fechaActualizacion)
+        const elementoCotizacion = document.createElement('tr');
+        elementoCotizacion.innerHTML = `
+          <td></td>
+          <td>${formatearFechaHora(fecha)}</td>
+          <td>$${cotizacion.compra}</td>
+          <td>$${cotizacion.venta}</td>
+          <td class="text-center"><img src="./img/icons/${cotizacion.tendencia}.svg" alt="${cotizacion.tendencia}"></td>
+        `;
+        table.appendChild(elementoCotizacion);
+      })
+    });
+  } else {
+    const data = document.getElementById("data");
+    data.innerHTML = '<h3 class="text-center mt-5rem">No hay cotizaciones favoritas</h3>';
+  }
+}
+
+mostrarInforme()
