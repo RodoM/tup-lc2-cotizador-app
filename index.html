@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/pages/index.css">
 </head>
-<body class="page">
+<body id="page" class="page">
   <header class="header">
     <img src="./img/icons/coins.svg" alt="monedas">
     <h1>Cotizador de monedas</h1>
@@ -57,85 +57,12 @@
       </div>
       <div class="currency__filter">
         <label for="currency">Seleccione una moneda:</label>
-        <select name="currency" id="currency">
-          <option value="todas">todas</option>
-          <option value="dolar-blue">Dólar blue</option>
-          <option value="dolar-oficial">Dólar oficial</option>
-          <option value="dolar-bolsa">Dólar bolsa (MEP)</option>
-          <option value="dolar-liqui">Dólar contado con liqui (CCL)</option>
-          <option value="dolar-tarjeta">Dólar tarjeta</option>
-          <option value="dolar-mayorista">Dólar mayorista</option>
-          <option value="dolar-cripto">Dólar cripto</option>
-          <option value="euro">Euro</option>
-          <option value="real">Real brasileño</option>
-          <option value="peso-chileno">Peso chileno</option>
-          <option value="peso-uruguayo">Peso uruguayo</option>
-        </select>
+        <select name="currency" id="currency_select"></select>
       </div>
 
-      <p class="text-end mt-2">Datos actualizados al dd/mm/aaaa hh:mm hs</p>
+      <p id="updated_at" class="text-end mt-2">Datos actualizados al dd/mm/aaaa hh:mm hs</p>
 
-      <div class="currency__container">
-        <div class="currency">
-          <span class="currency-name">OFICIAL</span>
-          <div class="currency__info">
-            <span class="currency__info-label">COMPRA</span>
-            <span class="currency__info-value">$847</span>
-          </div>
-          <div class="currency__info">
-            <span class="currency__info-label">VENTA</span>
-            <span class="currency__info-value">$887</span>
-          </div>
-          <button>
-            <img src="./img/icons/star.svg" alt="favoritos">
-          </button>
-        </div>
-
-        <div class="currency">
-          <span class="currency-name">OFICIAL</span>
-          <div class="currency__info">
-            <span class="currency__info-label">COMPRA</span>
-            <span class="currency__info-value">$847</span>
-          </div>
-          <div class="currency__info">
-            <span class="currency__info-label">VENTA</span>
-            <span class="currency__info-value">$887</span>
-          </div>
-          <button>
-            <img src="./img/icons/star.svg" alt="favoritos">
-          </button>
-        </div>
-
-        <div class="currency">
-          <span class="currency-name">OFICIAL</span>
-          <div class="currency__info">
-            <span class="currency__info-label">COMPRA</span>
-            <span class="currency__info-value">$847</span>
-          </div>
-          <div class="currency__info">
-            <span class="currency__info-label">VENTA</span>
-            <span class="currency__info-value">$887</span>
-          </div>
-          <button>
-            <img src="./img/icons/star.svg" alt="favoritos">
-          </button>
-        </div>
-
-        <div class="currency">
-          <span class="currency-name">OFICIAL</span>
-          <div class="currency__info">
-            <span class="currency__info-label">COMPRA</span>
-            <span class="currency__info-value">$847</span>
-          </div>
-          <div class="currency__info">
-            <span class="currency__info-label">VENTA</span>
-            <span class="currency__info-value">$887</span>
-          </div>
-          <button>
-            <img src="./img/icons/star.svg" alt="favoritos">
-          </button>
-        </div>
-      </div>
+      <div id="currencies" class="currency__container"></div>
 
       <div class="page__detail">
         <p>Haga click en la estrella para guardar los datos de la cotización en sus favoritos.</p>
@@ -183,5 +110,7 @@
 
     <p class="footer_description">TUP - Cátedra de Laboratorio de Computación 2 - Año 2024</p>
   </footer>
+
+  <script src="./js/pages/index.js"></script>
 </body>
 </html>

@@ -115,6 +115,19 @@
   list-style: none;
 }
 
+/* Error msg */
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  border-radius: .5rem;
+  opacity: 0.7;
+}
+
 /* Helpers */
 .d-flex {
   display: flex;
@@ -134,6 +147,10 @@
 
 .text-end {
   text-align: end;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
