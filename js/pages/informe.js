@@ -77,10 +77,16 @@ function actualizarGrafica(grafica, cotizaciones, mostrarVenta = true) {
 }
 
 function obtenerFavoritas(cotizacion) {
-  if (!cotizacion || cotizacion === 'Todas') {
-    return JSON.parse(localStorage.getItem("favoritas") || []);
+  const favoritas = JSON.parse(localStorage.getItem("favoritas"));
+  let favoritasFiltradas = [];
+  if (favoritas) {
+    if (!cotizacion || cotizacion === 'Todas') {
+      favoritasFiltradas = favoritas;
+    } else {
+      favoritasFiltradas = favoritas.filter((favorita) => favorita.nombre === cotizacion);
+    }
   }
-  return JSON.parse(localStorage.getItem("favoritas") || []).filter((favorita) => favorita.nombre === cotizacion);
+  return favoritasFiltradas;
 }
 
 let favoritas = obtenerFavoritas();
@@ -139,6 +145,12 @@ function agruparYOrdenarDatos(datos) {
 function mostrarInforme(cotizacion) {
   const favoritas = agruparYOrdenarDatos(obtenerFavoritas(cotizacion));
   const table = document.getElementById("table-body");
+  const grafica = document.getElementById("miGrafica");
+  const sendInform = document.getElementById("send-inform");
+
+  sendInform.style.display = 'flex';
+  grafica.style.display = 'block';
+
   table.innerHTML = '';
   if (favoritas.length) {
     favoritas.forEach((grupo) => {
@@ -161,8 +173,13 @@ function mostrarInforme(cotizacion) {
       });
     });
   } else {
-    const data = document.getElementById("data");
-    data.innerHTML = '<h3 class="text-center mt-5rem">No hay cotizaciones favoritas</h3>';
+    sendInform.style.display = 'none';
+    grafica.style.display = 'none';
+    const sinFavoritas = document.createElement('tr');
+    sinFavoritas.innerHTML = `
+      <td colspan="5" class="no-data">No hay cotizaciones disponibles</td>
+    `;
+    table.appendChild(sinFavoritas);
   }
 }
 

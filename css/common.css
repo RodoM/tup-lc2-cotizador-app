@@ -128,6 +128,13 @@
   opacity: 0.7;
 }
 
+.no-data {
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 /* Helpers */
 .d-flex {
   display: flex;
