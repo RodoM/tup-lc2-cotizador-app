@@ -1,37 +1,40 @@
 const page = document.getElementById('page');
 const currenciesList = document.getElementById('currencies');
 const updated = document.getElementById('updated_at');
-async function consultarCotizaciones(apiURL) {
-  currenciesList.innerHTML = 'Cargando...';
+
+let cotizacionesGeneral = [];
+
+async function consultarCotizaciones() {
+  currenciesList.innerHTML = 'Cargando cotizaciones...';
   try {
-    let response;
-    if (apiURL === 'todas') {
-      Promise.all([
-        // ver como desestructurar la primera consulta
-        fetch('https://dolarapi.com/v1/dolares').then((res) => res.json()),
-        fetch('https://dolarapi.com/v1/cotizaciones/eur').then((res) => res.json()),
-        fetch('https://dolarapi.com/v1/cotizaciones/brl').then((res) => res.json()),
-        fetch('https://dolarapi.com/v1/cotizaciones/clp').then((res) => res.json()),
-        fetch('https://dolarapi.com/v1/cotizaciones/uyu').then((res) => res.json()),
-      ])
-      .then((res) => console.log(res))
-    } else {
-      response = await fetch(apiURL).then((res) => res.json());
-      if (!Array.isArray(response)) {
-        response = [response];
-      }
-      console.log(response)
-    }
-    mostrarCotizaciones(response);
+    const [dls, eur, brl, clp, uyu] = await Promise.all([
+      fetch('https://dolarapi.com/v1/dolares').then((res) => res.json()),
+      fetch('https://dolarapi.com/v1/cotizaciones/eur').then((res) => res.json()),
+      fetch('https://dolarapi.com/v1/cotizaciones/brl').then((res) => res.json()),
+      fetch('https://dolarapi.com/v1/cotizaciones/clp').then((res) => res.json()),
+      fetch('https://dolarapi.com/v1/cotizaciones/uyu').then((res) => res.json()),
+    ]);
+
+    cotizacionesGeneral = [...dls, eur, brl, clp, uyu];
+    mostrarCotizaciones(cotizacionesGeneral);
   } catch (error) {
     console.error(error);
-    // crear elemento fuera de funcion oculto, al llamar la funcion ocultarlo y si se produce el error mostrarlo
-    // const element = document.createElement('div');
-    // element.className = 'error';
-    // element.innerHTML = `
-    //   <span><strong>Error:</strong>Ha ocurrido un error al intentar consultar los datos</span>
-    // `;
-    // page.appendChild(element);
+    const element = document.createElement('div');
+    element.className = 'error';
+    element.innerHTML = `
+      <span><strong>Error:</strong>Ha ocurrido un error al intentar consultar los datos</span>
+    `;
+    page.appendChild(element);
+  }
+}
+
+function filtrarCotizaciones(cotizacion) {
+  if (cotizacion === 'Todas') {
+    mostrarCotizaciones(cotizacionesGeneral)
+  } else if (cotizacion === 'USD') {
+    mostrarCotizaciones(cotizacionesGeneral.filter((c) => c.moneda === cotizacion));
+  } else {
+    mostrarCotizaciones(cotizacionesGeneral.filter((c) => c.nombre === cotizacion));
   }
 }
 
@@ -82,27 +85,27 @@ function agregarFavoritas(nombre, compra, venta, fechaActualizacion) {
   if (!enFavoritas(nombre, fechaActualizacion)) {
     favoritas.push({nombre, compra, venta, fechaActualizacion});
     localStorage.setItem("favoritas", JSON.stringify(favoritas));
-    consultarCotizaciones(select.value);
+    filtrarCotizaciones(select.value)
   } else {
     alert("La cotización ya se encuentra almacenada con la fecha actual.")
   }
 }
 
 const opciones_cotizaciones = [
-  { name: 'Todas', url: 'todas' },
-  { name: 'Dolares', url: 'https://dolarapi.com/v1/dolares' },
-  { name: 'Dólar oficial', url: 'https://dolarapi.com/v1/dolares/oficial' },
-  { name: 'Dólar blue', url: 'https://dolarapi.com/v1/dolares/blue' },
-  { name: 'Dólar bolsa (MEP)', url: 'https://dolarapi.com/v1/dolares/bolsa' },
-  { name: 'Dólar cotado con liqui (CCL)', url: 'https://dolarapi.com/v1/dolares/contadoconliqui' },
-  { name: 'Dólar tarjeta', url: 'https://dolarapi.com/v1/dolares/tarjeta' },
-  { name: 'Dólar mayorista', url: 'https://dolarapi.com/v1/dolares/mayorista' },
-  { name: 'Dólar cripto', url: 'https://dolarapi.com/v1/dolares/cripto' },
+  { name: 'Todas', value: 'Todas' },
+  { name: 'Dolares', value: 'USD' },
+  { name: 'Dólar oficial', value: 'Oficial' },
+  { name: 'Dólar blue', value: 'Blue' },
+  { name: 'Dólar bolsa (MEP)', value: 'Bolsa' },
+  { name: 'Dólar cotado con liqui (CCL)', value: 'Contado con liquidación' },
+  { name: 'Dólar tarjeta', value: 'Tarjeta' },
+  { name: 'Dólar mayorista', value: 'Mayorista' },
+  { name: 'Dólar cripto', value: 'Cripto' },
 
-  { name: 'Euro', url: 'https://dolarapi.com/v1/cotizaciones/eur' },
-  { name: 'Real brasileño', url: 'https://dolarapi.com/v1/cotizaciones/brl' },
-  { name: 'Peso chileno', url: 'https://dolarapi.com/v1/cotizaciones/clp' },
-  { name: 'Peso uruguayo', url: 'https://dolarapi.com/v1/cotizaciones/uyu' },
+  { name: 'Euro', value: 'Euro' },
+  { name: 'Real brasileño', value: 'Real Brasileño' },
+  { name: 'Peso chileno', value: 'Peso Chileno' },
+  { name: 'Peso uruguayo', value: 'Peso Uruguayo' },
 ];
 
 const select = document.getElementById('currency_select');
@@ -110,14 +113,13 @@ const select = document.getElementById('currency_select');
 opciones_cotizaciones.forEach((opcion) => {
   const element = document.createElement('option');
   element.textContent = opcion.name;
-  element.value = opcion.url;
+  element.value = opcion.value;
   select.appendChild(element);
 })
 
-select.addEventListener("change", () => consultarCotizaciones(select.value));
+select.addEventListener("change", () => filtrarCotizaciones(select.value));
 
-consultarCotizaciones(select.value);
+consultarCotizaciones();
 
-// Consultar cotizaciones cada 5 minutos
 const intervalo_minutos = 5 * 60 * 1000;
-setInterval(() => consultarCotizaciones(select.value), intervalo_minutos);
+setInterval(() => consultarCotizaciones(), intervalo_minutos);
