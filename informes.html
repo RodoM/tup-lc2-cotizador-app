@@ -74,23 +74,38 @@
         </select>
       </div>
 
-      <div class="send-inform">
+      <div class="send-inform" onclick="abrirDialog()">
         <img src="./img/icons/mail.svg" alt="mail">
         <p>Compartir información</p>
       </div>
+
+      <dialog id="form-dialog">
+        <form>
+          <div class="form-input">
+            <label for="nombre">Nombre</label>
+            <input id="receiver-name" type="text" name="name" placeholder="Ingrese su nombre">
+          </div>
+          <div class="form-input">
+            <label for="email">Email</label>
+            <input id="receiver-email" type="mail" name="email" placeholder="Ingrese su email">
+          </div>
+          <button type="button" class="send-button" onclick="enviarInforme()">Enviar informe</button>
+          <button type="reset" onclick="cerrarDialog()">Cancelar</button>
+        </form>
+      </dialog>
 
       <div id="data">
         <canvas id="miGrafica"></canvas>
 
         <div class="table__container">
-          <table cellspacing="0">
+          <table id="table-inform" cellspacing="0" style="width: 100%;border: 1px solid var(--border);border-radius: .5rem;">
             <thead>
               <tr>
-                <th>Moneda</th>
-                <th>Fecha</th>
-                <th>Compra</th>
-                <th>Venta</th>
-                <th class="text-center">Variación</th>
+                <th style="text-align: start;">Moneda</th>
+                <th style="text-align: start;">Fecha</th>
+                <th style="text-align: start;">Compra</th>
+                <th style="text-align: start;">Venta</th>
+                <th style="text-align: center;">Variación</th>
               </tr>
             </thead>
             <tbody id="table-body"></tbody>
@@ -134,6 +149,7 @@
     <div class="footer__block">
       <p>Desarrollado por</p>
       <p>Rodolfo Meroi (53473)</p>
+      <p>Santiago Landriel (53584)</p>
       <p>TUP06 - 2024</p>
     </div>
 
@@ -141,6 +157,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="./js/pages/informe.js"></script>
 </body>
 </html>

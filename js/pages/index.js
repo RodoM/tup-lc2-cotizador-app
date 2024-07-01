@@ -2,22 +2,36 @@ const page = document.getElementById('page');
 const currenciesList = document.getElementById('currencies');
 const updated = document.getElementById('updated_at');
 async function consultarCotizaciones(apiURL) {
-  // TODO: Agregar loader
   currenciesList.innerHTML = 'Cargando...';
   try {
-    let response = await fetch(apiURL).then((res) => res.json());
-    if (!Array.isArray(response)) {
-      response = [response];
+    let response;
+    if (apiURL === 'todas') {
+      Promise.all([
+        // ver como desestructurar la primera consulta
+        fetch('https://dolarapi.com/v1/dolares').then((res) => res.json()),
+        fetch('https://dolarapi.com/v1/cotizaciones/eur').then((res) => res.json()),
+        fetch('https://dolarapi.com/v1/cotizaciones/brl').then((res) => res.json()),
+        fetch('https://dolarapi.com/v1/cotizaciones/clp').then((res) => res.json()),
+        fetch('https://dolarapi.com/v1/cotizaciones/uyu').then((res) => res.json()),
+      ])
+      .then((res) => console.log(res))
+    } else {
+      response = await fetch(apiURL).then((res) => res.json());
+      if (!Array.isArray(response)) {
+        response = [response];
+      }
+      console.log(response)
     }
     mostrarCotizaciones(response);
   } catch (error) {
     console.error(error);
-    const element = document.createElement('div');
-    element.className = 'error';
-    element.innerHTML = `
-      <span><strong>Error:</strong>Ha ocurrido un error al intentar consultar los datos</span>
-    `;
-    page.appendChild(element);
+    // crear elemento fuera de funcion oculto, al llamar la funcion ocultarlo y si se produce el error mostrarlo
+    // const element = document.createElement('div');
+    // element.className = 'error';
+    // element.innerHTML = `
+    //   <span><strong>Error:</strong>Ha ocurrido un error al intentar consultar los datos</span>
+    // `;
+    // page.appendChild(element);
   }
 }
 
@@ -75,7 +89,8 @@ function agregarFavoritas(nombre, compra, venta, fechaActualizacion) {
 }
 
 const opciones_cotizaciones = [
-  { name: 'Todas', url: 'https://dolarapi.com/v1/dolares' },
+  { name: 'Todas', url: 'todas' },
+  { name: 'Dolares', url: 'https://dolarapi.com/v1/dolares' },
   { name: 'Dólar oficial', url: 'https://dolarapi.com/v1/dolares/oficial' },
   { name: 'Dólar blue', url: 'https://dolarapi.com/v1/dolares/blue' },
   { name: 'Dólar bolsa (MEP)', url: 'https://dolarapi.com/v1/dolares/bolsa' },

@@ -141,19 +141,21 @@ function mostrarInforme(cotizacion) {
   const table = document.getElementById("table-body");
   table.innerHTML = '';
   if (favoritas.length) {
-    favoritas.forEach(grupo => {
+    favoritas.forEach((grupo) => {
       const elementoNombre = document.createElement('tr');
-      elementoNombre.innerHTML = `<td colspan="5" class="date-cell">${grupo.nombre}</td>`;
+      elementoNombre.innerHTML = `<td colspan="5" style="background-color: #ddd; border-right: 1px solid var(--border);">${grupo.nombre}</td>`;
       table.appendChild(elementoNombre);
-      grupo.cotizaciones.forEach(cotizacion => {
+      grupo.cotizaciones.forEach((cotizacion) => {
         const fecha = new Date(cotizacion.fechaActualizacion);
+        const tendencia = cotizacion.tendencia;
+        const variacion = tendencia === 'en-alta' ? 'https://i.postimg.cc/cL7bbbTJ/en-alta.png' : tendencia === 'en-baja' ? 'https://i.postimg.cc/3xQq9TX6/en-baja.png' : 'https://i.postimg.cc/ydRQ0pJB/igual.png';
         const elementoCotizacion = document.createElement('tr');
         elementoCotizacion.innerHTML = `
-          <td></td>
-          <td>${formatearFechaHora(fecha)}</td>
-          <td>$${cotizacion.compra}</td>
-          <td>$${cotizacion.venta}</td>
-          <td class="text-center"><img src="./img/icons/${cotizacion.tendencia}.svg" alt="${cotizacion.tendencia}"></td>
+          <td style="border-right: 1px solid var(--border);"></td>
+          <td style="border-right: 1px solid var(--border);">${formatearFechaHora(fecha)}</td>
+          <td style="border-right: 1px solid var(--border);">$${cotizacion.compra}</td>
+          <td style="border-right: 1px solid var(--border);">$${cotizacion.venta}</td>
+          <td style="border-right: 1px solid var(--border); text-align: center"><img src="${variacion}" alt="${tendencia}"></td>
         `;
         table.appendChild(elementoCotizacion);
       });
@@ -165,3 +167,37 @@ function mostrarInforme(cotizacion) {
 }
 
 mostrarInforme();
+
+const dialog = document.getElementById('form-dialog');
+function abrirDialog() {
+  dialog.showModal();
+}
+
+function cerrarDialog() {
+  dialog.close();
+}
+
+emailjs.init({
+  publicKey: 'MFQakOTKUeCds7ViI',
+});
+
+function enviarInforme() {
+  const informe = document.getElementById('table-inform').outerHTML;
+  const name = document.getElementById('receiver-name').value;
+  const email = document.getElementById('receiver-email').value;
+  console.log(email)
+  const parametros = {
+    to_name: name,
+    from_name: 'Santiago Landriel y Rodolfo Meroi',
+    to_email: email,
+    my_html: informe,
+  };
+
+  emailjs.send('service_4jma3ng', 'template_hwgfft3', parametros)
+    .then(() => {
+        console.log('SUCCESS!');
+        cerrarDialog();
+    }, (error) => {
+        console.log('FAILED...', error);
+    });
+}
