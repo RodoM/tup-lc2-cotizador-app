@@ -1,6 +1,7 @@
 const page = document.getElementById('page');
 const currenciesList = document.getElementById('currencies');
 const updated = document.getElementById('updated_at');
+const warningMsg = document.getElementById('warning_msg');
 
 let cotizacionesGeneral = [];
 
@@ -22,7 +23,7 @@ async function consultarCotizaciones() {
     const element = document.createElement('div');
     element.className = 'error';
     element.innerHTML = `
-      <span><strong>Error:</strong>Ha ocurrido un error al intentar consultar los datos</span>
+      <span><strong>Error:</strong> Ha ocurrido un error al intentar consultar los datos</span>
     `;
     page.appendChild(element);
   }
@@ -47,6 +48,7 @@ function formatearFechaHora(date) {
 
   return `${dia}/${mes}/${año} ${horas}:${minutos}`;
 }
+
 function mostrarCotizaciones(cotizaciones) {
   const date = new Date(cotizaciones[0].fechaActualizacion);
   updated.innerHTML = formatearFechaHora(date);
@@ -87,7 +89,10 @@ function agregarFavoritas(nombre, compra, venta, fechaActualizacion) {
     localStorage.setItem("favoritas", JSON.stringify(favoritas));
     filtrarCotizaciones(select.value)
   } else {
-    alert("La cotización ya se encuentra almacenada con la fecha actual.")
+    warningMsg.style.display = 'block';
+    setInterval(() => {
+      warningMsg.style.display = 'none';
+    }, 2000);
   }
 }
 

@@ -4,7 +4,7 @@ function obtenerFechasUnicas(cotizaciones) {
   const fechas = [];
   cotizaciones.forEach(cotizacion => {
     const fecha = new Date(cotizacion.fechaActualizacion);
-    if (!fechas.some(f => f.getTime() === fecha.getTime())) {
+    if (!fechas.some((f) => f.getTime() === fecha.getTime())) {
       fechas.push(fecha);
     }
   });
@@ -192,6 +192,10 @@ function abrirDialog() {
 
 function cerrarDialog() {
   dialog.close();
+  const name = document.getElementById('receiver-name');
+  name.style.border = '1px solid transparent';
+  const email = document.getElementById('receiver-email');
+  email.style.border = '1px solid transparent';
 }
 
 emailjs.init({
@@ -200,21 +204,33 @@ emailjs.init({
 
 function enviarInforme() {
   const informe = document.getElementById('table-inform').outerHTML;
-  const name = document.getElementById('receiver-name').value;
-  const email = document.getElementById('receiver-email').value;
-  console.log(email)
-  const parametros = {
-    to_name: name,
-    from_name: 'Santiago Landriel y Rodolfo Meroi',
-    to_email: email,
-    my_html: informe,
-  };
 
-  emailjs.send('service_4jma3ng', 'template_hwgfft3', parametros)
-    .then(() => {
-        console.log('SUCCESS!');
-        cerrarDialog();
-    }, (error) => {
-        console.log('FAILED...', error);
-    });
+  const name = document.getElementById('receiver-name');
+  name.style.border = '1px solid transparent';
+  if (!name.value) {
+    name.style.border = '1px solid red';
+  }
+
+  const email = document.getElementById('receiver-email');
+  email.style.border = '1px solid transparent';
+  if (!validarEmail(email.value)) {
+    email.style.border = '1px solid red';
+  }
+  
+  if (name.value && validarEmail(email.value)) {
+    const parametros = {
+      to_name: name.value,
+      from_name: 'Santiago Landriel y Rodolfo Meroi',
+      to_email: email.value,
+      my_html: informe,
+    };
+  
+    emailjs.send('service_4jma3ng', 'template_hwgfft3', parametros)
+      .then(() => {
+          console.log('SUCCESS!');
+          cerrarDialog();
+      }, (error) => {
+          console.log('FAILED...', error);
+      });
+  }
 }

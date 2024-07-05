@@ -63,22 +63,22 @@
 
             <div class="contact__form-input">
               <label for="nombre">Nombre</label>
-              <input type="text" name="from_name" placeholder="Ingrese su nombre">
+              <input id="name" type="text" name="from_name" placeholder="Ingrese su nombre">
             </div>
   
             <div class="contact__form-input">
               <label for="email">Email</label>
-              <input type="email" name="user_email" placeholder="Ingrese su email">
+              <input id="email" type="email" name="user_email" placeholder="Ingrese su email">
             </div>
   
             <div class="contact__form-input">
               <label for="mensaje">Mensaje</label>
-              <textarea name="message" rows="5" placeholder="Ingrese su mensaje"></textarea>
+              <textarea id="message" name="message" rows="5" placeholder="Ingrese su mensaje"></textarea>
             </div>
   
             <div class="contact__form-footer">
               <button type="reset">Limpiar</button>
-              <button type="submit" class="send-button">Enviar</button>
+              <button type="button" class="send-button" onclick="enviarMensaje()">Enviar</button>
             </div>
           </form>
         </div>
@@ -147,6 +147,7 @@
   </footer>
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="./js/pages/contacto.js"></script>
+  <script src="./js/common.js" defer></script>
+  <script src="./js/pages/contacto.js" defer></script>
 </body>
 </html>
